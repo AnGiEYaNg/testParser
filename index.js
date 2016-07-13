@@ -1,11 +1,7 @@
 var express = require('express');
 var app = express();
 
-//serves up angular js files and htmls
-app.use(express.static(__dirname+'/public'));
-
-//serves up css files
-app.use(express.static(__dirname+'/assets'));
+app.use(express.static(__dirname));
 
 //homepage
 app.get('/', function(req, res){
