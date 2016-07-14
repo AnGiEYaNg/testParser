@@ -3,18 +3,18 @@
 	<head>
 		<title> Test Parser</title>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="assets/main.css" />
+		<link rel="stylesheet" type="text/css" href="main.css" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-		<script type="text/javascript" src="public/app.js"></script>
-		<script type="text/javascript" src="public/sAuth.fact.js"></script>
-		<script type="text/javascript" src="public/Main.ctrl.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+		<script type="text/javascript" src="Main.ctrl.js"></script>
+		<script type="text/javascript" src="sAuth.fact.js"></script>
 	</head>
-	<body ng-app="TestParser" ng-controller="MainController">
+	<body ng-app="TestParser" ng-controller="MainCtrl">
 
 		<!-- Add the fb-root div, this is the place where the Javascript SDK attaches itself to. -->
 		<div id="fb-root"></div>
+		<p ng-if="!user">Hi!</p>
+		<p ng-if="user">Welcome!</p>
 
-		<p>Hi!</p>
-		<fb:login-button show-faces="true" max-rows="1"
-		  size="large"></fb:login-button>
+		<div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="true" data-auto-logout-link="true"></div>
 	</body>

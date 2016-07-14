@@ -1,63 +1,38 @@
 'use strict';
-app.factory('sAuth', function(){
+app.factory('sAuth', ['$window', '$rootScope', '$http', function($window, $rootScope, $http){
 	var sAuth = {};
+
+	/*
+		Watch for login status change:
+			If user logged in, retrieve user info.
+			If user logs out, delete session storage.
+	*/
 	sAuth.watchLoginChange = function() {
-
-	  var _self = this;
-
 	  FB.Event.subscribe('auth.authResponseChange', function(res) {
-
 	    if (res.status === 'connected') {
-
-	      /*
-	       The user is already logged,
-	       is possible retrieve his personal info
-	      */
-	      _self.getUserInfo();
-
-	      /*
-	       This is also the point where you should create a
-	       session for the current user.
-	       For this purpose you can use the data inside the
-	       res.authResponse object.
-	      */
-
+	      sAuth.getUserInfo();
+	    }else{
+	      $rootScope.user = {};
+	      $window.sessionStorage.setItem("user", null);
 	    }
-	    else {
-
-	      /*
-	       The user is not logged to the app, or into Facebook:
-	       destroy the session on the server.
-	      */
-
-	    }
-
 	  });
-
 	};
 
-	sAuth.getUserInfo = function() {
-
-	  var _self = this;
-
+	/*
+		Retrieve user name and id.	
+	*/
+	sAuth.getUserInfo = function(userId) {
 	  FB.api('/me', function(res) {
 	    $rootScope.$apply(function() {
-	      $rootScope.user = _self.user = res;
+	      $rootScope.user = res;
+	      /* 
+	      	Uncomment the following line if session storage is needed.
+	      */
+	      // $window.sessionStorage.setItem("user", JSON.stringify(sAuth.user));
+	      return res;
 	    });
 	  });
-
 	}
 
-	sAuth.logout = function() {
-
-	  var _self = this;
-
-	  FB.logout(function(response) {
-	    $rootScope.$apply(function() {
-	      $rootScope.user = _self.user = {};
-	    });
-	  });
-
-	}
 	return sAuth;
-})
+}])

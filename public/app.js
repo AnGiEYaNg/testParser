@@ -1,10 +1,8 @@
 'use strict';
 var app = angular.module("TestParser", []);
 
-app.run(['$rootScope', '$window', 'sAuth',
-  function($rootScope, $window, sAuth) {
-
-  $rootScope.user = {};
+app.run(['$window', 'sAuth',
+  function($window, sAuth) {
 
   $window.fbAsyncInit = function() {
     // Executed when the SDK is loaded
@@ -25,7 +23,7 @@ app.run(['$rootScope', '$window', 'sAuth',
       xfbml: true
     });
 
-    sAuth.watchAuthenticationStatusChange();
+    sAuth.watchLoginChange();
 
   };
 

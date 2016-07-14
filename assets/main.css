@@ -1,0 +1,9 @@
+body {
+	padding: 100px;
+	display: flex;
+	justify-content: center;
+}
+
+.fb-login-button {
+	margin: 50px;
+}
